@@ -91,17 +91,30 @@ condiciones a la vez:
 1. Estar marcada como **cobrada**.
 2. No tener todavía comprobante de factura ni de recibo.
 3. Estar vinculada a un **contrato real** (no a marcas como "movimiento interno" o "no cobrar").
-4. Tener un **monto cobrado** mayor a cero.
+4. Tener cargado el **monto que Localiza cobró** y que sea mayor a cero.
+
+La condición 4 mira lo que efectivamente se cobró, no el importe original del acta. Las multas
+vencidas que Multabot pasa a otro controlador quedan sin importe en el acta, y antes caían
+afuera de la cola aunque ya estuvieran cobradas.
 
 Las que quedan afuera no desaparecen: se muestran como **"Fuera del circuito"** con el motivo,
-para que un "no hay nada para facturar" siempre tenga explicación.
+para que un "no hay nada para facturar" siempre tenga explicación. Por ejemplo, una multa marcada
+como cobrada pero **sin monto cobrado** aparece ahí con ese motivo, y entra sola a la cola en
+cuanto se carga el monto en Multabot.
 
 El período a facturar se mira por **fecha de cobro**, no por fecha de la infracción: una multa
 de marzo cobrada en agosto se factura en agosto.
 
-**Importes.** Todo sale del monto realmente cobrado: el total se descompone en multa, cargo
-administrativo (el porcentaje del acta, o uno por defecto si no figura) e IVA sobre el cargo, de
-forma que las tres partes suman exacto el total.
+**Importes.** Todo sale del monto que Localiza cobró:
+
+- **Total** = el monto cobrado.
+- **Multa** = el total dividido por (1 + porcentaje de cargo × 1,21).
+- **Cargo administrativo** = la multa × el porcentaje de cargo.
+- **IVA** = lo que resta, de forma que las tres partes suman exacto lo cobrado.
+
+El porcentaje de cargo sale del acta. Si el acta no lo trae, se usa el 20%. Como se parte de lo
+cobrado y no del importe del acta, un pago parcial ya no descuenta un cargo calculado sobre el
+total completo, y los importes coinciden con los que muestra Multabot.
 
 ### 1. Revisión de datos y medio de cobro (equipo de multas)
 
@@ -121,8 +134,14 @@ Cuando una fila tiene todo, pasa a **Lista**.
 
 ### 2. Botón "Enviar a facturar" (equipo de multas → Tango + Google Sheets)
 
-- El operador tilda las multas **Listas** que quiere enviar (sólo se pueden tildar las listas) y
-  confirma.
+- **El operador elige qué multas enviar.** Cada fila tiene un check a la izquierda que arranca sin
+  tildar, y sólo se pueden tildar las **Listas**. El check del encabezado tilda o destilda todas
+  las Listas visibles y respeta el filtro y la búsqueda.
+- Una barra muestra cuántas hay seleccionadas y por qué importe, con un botón para limpiar la
+  selección. El botón dice **"Enviar a facturar (N)"**, manda **sólo las tildadas** y queda
+  deshabilitado si no hay ninguna. La selección se limpia después de un envío y al cambiar el
+  período.
+- El operador confirma el envío.
 - La app **sube las filas directo a Tango**, a la tabla de entrada que lee el facturador
   automático del ERP. Sin planilla intermedia ni n8n.
 - La carga tiene un **control de duplicados por número de acta**: si una multa ya estaba en
@@ -229,9 +248,13 @@ En la pantalla, cada estado es una tarjeta con su conteo que además filtra la t
   queda en el circuito.
 - **Envío diario automático.** La carga a Tango hoy se dispara con el botón. Hacerla sola, todos
   los días, es una decisión aparte, preparada para activarse por configuración.
-- **Supuestos frágiles.** El catálogo de medios de cobro está fijo en el código, y el porcentaje
-  de cargo administrativo por defecto se usa cuando el acta no lo trae; un acta con otro
-  porcentaje y sin ese dato se repartiría mal entre multa, cargo e IVA.
+- **Multas cobradas sin monto cargado.** Hay multas marcadas como cobradas en Multabot que no
+  tienen el monto cobrado cargado. Quedan en "Fuera del circuito" hasta que alguien carga el
+  monto.
+- **Supuestos frágiles.** El catálogo de medios de cobro está fijo en el código, así que un medio
+  nuevo (por ejemplo, una variante de tarjeta que no figura) deja la multa pendiente hasta que se
+  carga a mano. El 20% de cargo por defecto se usa cuando el acta no trae el porcentaje: un acta
+  con otro porcentaje y sin ese dato se repartiría mal entre multa, cargo e IVA.
 - **Notificación al conductor.** El módulo tiene una segunda pestaña, construida, para mandarle a
   cada conductor el PDF de su factura por mail, con envío en tandas, reintentos y modo
   simulación. Su puesta en marcha es una etapa aparte de lo que describe este documento.
