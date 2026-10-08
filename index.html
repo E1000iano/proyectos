@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proyectos Tecnología Localiza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --brand:#05662C; --brand-deep:#043A1A; --lime:#7DDF20; --lime-ink:#06331A;
+  --bg:#FAFBFA; --surface:#FFFFFF; --soft:#E7F2EA; --muted-bg:#F1F4F2;
+  --ink:#16211B; --muted:#56655C; --line:#DCE4DF;
+  --ok-bg:#E3F6D2; --ok-ink:#265C0A; --prog-bg:#FCEFD3; --prog-ink:#7A5405;
+  --no:#B8412F; --no-bg:#FBE6E2;
+  --hero-ink:#FFFFFF; --hero-sub:#D5E9DA;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1511; --surface:#151E18; --soft:#1B2E21; --muted-bg:#1A231D;
+    --ink:#E6EEE8; --muted:#9DB0A4; --line:#2A3830;
+    --ok-bg:#223D12; --ok-ink:#B6EE82; --prog-bg:#3A2D0E; --prog-ink:#F2C766;
+    --no:#F08A77; --no-bg:#3A1D18; --brand-deep:#032812;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1511; --surface:#151E18; --soft:#1B2E21; --muted-bg:#1A231D;
+  --ink:#E6EEE8; --muted:#9DB0A4; --line:#2A3830;
+  --ok-bg:#223D12; --ok-ink:#B6EE82; --prog-bg:#3A2D0E; --prog-ink:#F2C766;
+  --no:#F08A77; --no-bg:#3A1D18; --brand-deep:#032812;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 "Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:Archivo,"Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.15}
+p{margin:0}
+a{color:inherit}
+a:focus-visible{outline:3px solid var(--lime);outline-offset:3px;border-radius:6px}
+
+.hero{background:var(--brand);color:var(--hero-ink);padding-inline:16px;padding-block:56px 48px}
+.wrap{max-width:1080px;margin-inline:auto}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.hero .eyebrow{color:var(--lime)}
+.hero h1{font-size:clamp(34px,6vw,58px);font-weight:800;margin-top:10px;max-width:16ch}
+.hero p{color:var(--hero-sub);font-size:18px;max-width:58ch;margin-top:14px}
+.tally{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:28px;font-size:14px;color:var(--hero-sub)}
+.tally b{font-family:Archivo,Arial,sans-serif;font-size:28px;color:var(--hero-ink);margin-right:6px;font-variant-numeric:tabular-nums}
+
+main{padding-inline:16px;padding-block:40px 64px}
+.overview{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.ov{display:flex;flex-direction:column;gap:10px;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:12px;text-decoration:none;transition:border-color .15s,transform .15s}
+.ov:hover{border-color:var(--brand);transform:translateY(-2px)}
+.ov h3{font-size:17px}
+.ov span.next{font-size:13px;color:var(--muted)}
+.pill{display:inline-block;align-self:flex-start;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.pill.ok{background:var(--ok-bg);color:var(--ok-ink)}
+.pill.prog{background:var(--prog-bg);color:var(--prog-ink)}
+.sec-label{margin-block:0 14px;color:var(--muted)}
+
+.project{margin-top:56px;padding-top:40px;border-top:1px solid var(--line);scroll-margin-top:16px}
+.phead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px}
+.phead h2{font-size:clamp(26px,4vw,36px);font-weight:800}
+.lede{font-size:18px;color:var(--muted);max-width:62ch;margin-top:10px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;margin-top:24px}
+.block h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:12px;font-family:"Public Sans",sans-serif;font-weight:600}
+:root[data-theme="dark"] .block h3{color:var(--lime)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .block h3{color:var(--lime)}}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;font:700 14px Archivo,Arial,sans-serif}
+.steps b{display:block}
+.steps span{color:var(--muted);font-size:15px}
+.feats{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.feats li{padding:12px 14px;background:var(--soft);border-radius:10px}
+.feats b{display:block}
+.feats span{color:var(--muted);font-size:15px}
+
+.cmp{display:grid;grid-template-columns:1fr 1fr;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.cmp>div{padding:16px 18px}
+.cmp .before{background:var(--muted-bg)}
+.cmp .after{background:var(--brand);color:#fff}
+.cmp h4{margin:0 0 10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.cmp .before h4{color:var(--muted)}
+.cmp .after h4{color:var(--lime)}
+.cmp ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:15px;line-height:1.45}
+.cmp li{display:grid;grid-template-columns:18px 1fr;gap:8px}
+.cmp .before li::before{content:"×";color:var(--no);font-weight:700}
+.cmp .after li::before{content:"✓";color:var(--lime);font-weight:700}
+@media (max-width:560px){.cmp{grid-template-columns:1fr}}
+
+.note{margin-top:18px;padding:14px 16px;border-radius:10px;background:var(--prog-bg);color:var(--ink);font-size:15px}
+.note b{color:var(--prog-ink)}
+.note.good{background:var(--soft)}
+.note.good b{color:var(--brand)}
+:root[data-theme="dark"] .note.good b{color:var(--lime)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .note.good b{color:var(--lime)}}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat{background:var(--soft);border-radius:10px;padding:12px 14px}
+.stat b{display:block;font:800 30px/1 Archivo,Arial,sans-serif;color:var(--brand);font-variant-numeric:tabular-nums}
+:root[data-theme="dark"] .stat b{color:var(--lime)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stat b{color:var(--lime)}}
+.stat span{font-size:13px;color:var(--muted)}
+
+/* mockup of the proposed Gastos Sucursales view */
+.mock{border:1px solid var(--line);border-radius:12px;background:var(--muted-bg);padding:14px;display:grid;gap:10px;font-size:13px}
+.mk-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mk-kpis div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.mk-kpis small{display:block;color:var(--muted);font-size:11px}
+.mk-kpis b{font-family:Archivo,Arial,sans-serif;color:var(--ink)}
+.mk-search{display:flex;justify-content:space-between;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 10px;color:var(--muted)}
+.mk-search em{font-style:normal;color:var(--brand);font-weight:600}
+.mk-body{display:grid;grid-template-columns:1.6fr 1fr;gap:8px}
+.mk-rows{display:grid;gap:5px}
+.mk-row{display:grid;grid-template-columns:80px 1fr;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 8px}
+.mk-row.sel{border-color:var(--brand);background:var(--soft)}
+.mk-row i{display:block;height:8px;background:var(--brand);border-radius:4px}
+.mk-panel{background:var(--surface);border:1.5px solid var(--brand);border-radius:8px;padding:8px;display:grid;gap:6px;align-content:start}
+.mk-panel b{font-size:12px}
+.mk-panel i{display:block;height:16px;border-radius:4px;background:var(--muted-bg)}
+.doclink{margin-top:18px;font-weight:600}
+.doclink a{color:var(--brand)}
+:root[data-theme="dark"] .doclink a{color:var(--lime)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .doclink a{color:var(--lime)}}
+.caption{font-size:13px;color:var(--muted);margin-top:8px}
+
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:15px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+thead th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--muted-bg)}
+td.win{background:var(--soft);font-weight:600}
+
+.summary td:first-child{font-weight:600}
+footer{margin-top:48px;font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion: reduce){.ov{transition:none}.ov:hover{transform:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Tecnología · Localiza Argentina · Octubre 2026</div>
+    <h1>Proyectos en curso</h1>
+    <p>Qué armamos, en qué estado está cada proyecto y por qué es mejor que lo que teníamos. Casi todos apuntan a lo mismo: menos trabajo manual y datos en un solo lugar.</p>
+    <div class="tally">
+      <div><b>8</b>proyectos</div>
+      <div><b>3</b>en uso</div>
+      <div><b>5</b>en construcción o propuesta</div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <p class="eyebrow sec-label">Estado de un vistazo</p>
+  <nav class="overview" aria-label="Proyectos">
+    <a class="ov" href="#portal-clientes"><h3>Portal de Clientes</h3><span class="pill ok">Listo para usar</span><span class="next">Que las sucursales carguen su contenido</span></a>
+    <a class="ov" href="#multas"><h3>Facturación de multas</h3><span class="pill ok">En producción</span><span class="next">Automatizar los medios de cobro</span></a>
+    <a class="ov" href="#intranet"><h3>Intranet</h3><span class="pill ok">Publicada</span><span class="next">Llegar más rápido a la información</span></a>
+    <a class="ov" href="#stock"><h3>Taller · Stock de repuestos</h3><span class="pill prog">En construcción</span><span class="next">Descuento automático desde franquicias, reparaciones y services (en curso)</span></a>
+    <a class="ov" href="#gastos"><h3>Taller · Gastos Sucursales</h3><span class="pill prog">Propuesta de mejora</span><span class="next">Elegir el diseño simplificado</span></a>
+    <a class="ov" href="#camaras"><h3>Servidor de cámaras</h3><span class="pill prog">En armado</span><span class="next">Terminar el acceso por link</span></a>
+    <a class="ov" href="#rustdesk"><h3>Servidor propio de RustDesk</h3><span class="pill prog">En instalación</span><span class="next">Terminar la instalación y migrar equipos</span></a>
+    <a class="ov" href="#postulaciones"><h3>Portal de postulaciones</h3><span class="pill prog">Hecho, sin publicar</span><span class="next">Casilla de correo, dominio y requisitos reales</span></a>
+  </nav>
+
+  <!-- Portal de Clientes -->
+  <section class="project" id="portal-clientes">
+    <div class="phead"><h2>Portal de Clientes</h2><span class="pill ok">Listo para usar</span></div>
+    <p class="lede">La plataforma está terminada. Ahora los líderes de cada sucursal la llenan con imágenes, turismo e información útil de su provincia.</p>
+    <div class="grid2">
+      <div class="block">
+        <h3>Qué es</h3>
+        <ul class="feats">
+          <li><b>Contenido por provincia</b><span>Turismo, imágenes y todo lo relevante de la zona de cada sucursal.</span></li>
+          <li><b>Lo cargan los líderes de sucursal</b><span>Quien conoce la zona escribe, sin pedirle nada a sistemas.</span></li>
+          <li><b>Un solo lugar para el cliente</b><span>La información de todas las sucursales, con el mismo formato en todo el país.</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Por qué es mejor</h3>
+        <div class="cmp">
+          <div class="before"><h4>Sin portal</h4><ul><li>La información queda repartida y cuesta encontrarla</li><li>Actualizar algo depende de otra área</li><li>Cada sucursal lo comunica a su manera</li></ul></div>
+          <div class="after"><h4>Con el portal</h4><ul><li>Cada líder actualiza su sucursal</li><li>La información se mantiene al día</li><li>El cliente ve lo mismo en todas las provincias</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <p class="note good"><b>Próximo paso:</b> presentar el portal a los líderes de sucursal, que carguen su contenido, revisarlo y difundirlo a los clientes. La parte técnica está resuelta.</p>
+    <p class="doclink"><a href="https://github.com/E1000iano/proyectos/blob/main/docs/01-portal-clientes.md">Documentación completa del proceso →</a></p>
+  </section>
+
+  <!-- Multas -->
+  <section class="project" id="multas">
+    <div class="phead"><h2>Facturación automática de multas</h2><span class="pill ok">En producción</span></div>
+    <p class="lede">Las multas llegan listas para facturar al panel de facturación y el proceso se completa con tres botones.</p>
+    <div class="grid2">
+      <div class="block">
+        <h3>Cómo funciona hoy</h3>
+        <ol class="steps">
+          <li><div><b>Llegan las multas</b><span>Aparecen en el panel de facturación, listas para facturar.</span></div></li>
+          <li><div><b>Completar datos</b><span>Si faltan datos del cliente, los busca en la API de Contratos y los completa.</span></div></li>
+          <li><div><b>Enviar a facturar</b><span>Las sube directo a Tango y crea una hoja de Sheets para que el equipo de multas la revise.</span></div></li>
+          <li><div><b>Traer comprobantes</b><span>Consulta en Tango si ya tienen n_comp_fac y n_comp_rec, y se los manda a Multabot.</span></div></li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Por qué es mejor</h3>
+        <div class="cmp">
+          <div class="before"><h4>Antes</h4><ul><li>Los datos del cliente se buscaban y tipeaban a mano</li><li>Cada multa se cargaba a mano en Tango</li><li>Los comprobantes se copiaban uno por uno en Multabot</li></ul></div>
+          <div class="after"><h4>Ahora</h4><ul><li>Un botón completa los datos desde Contratos</li><li>Un botón sube todo a Tango y deja la hoja para control</li><li>Un botón trae los comprobantes y los envía a Multabot</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Falta:</b> varios medios de cobro todavía se cargan a mano. Es el último paso manual que queda por automatizar.</p>
+    <p class="doclink"><a href="https://github.com/E1000iano/proyectos/blob/main/docs/02-facturacion-multas.md">Documentación completa del proceso →</a></p>
+  </section>
+
+  <!-- Intranet -->
+  <section class="project" id="intranet">
+    <div class="phead"><h2>Intranet con nuevo diseño</h2><span class="pill ok">Publicada</span></div>
+    <p class="lede">La intranet se renovó con la marca Localiza y un buscador para llegar más rápido a áreas y documentos.</p>
+    <div class="grid2">
+      <div class="block">
+        <h3>Qué cambió</h3>
+        <ul class="feats">
+          <li><b>Portada con la marca</b><span>La identidad visual de Localiza desde la entrada.</span></li>
+          <li><b>Buscador de áreas y documentos</b><span>Encuentra lo que buscás sin recorrer carpetas.</span></li>
+          <li><b>Encabezados por área y página «Nuestra cultura»</b><span>Cada área se reconoce enseguida, y la cultura tiene su propio lugar.</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Por qué es mejor</h3>
+        <div class="cmp">
+          <div class="before"><h4>Antes</h4><ul><li>Para encontrar un documento había que navegar carpetas</li><li>Cada área con su propio estilo</li><li>La cultura no tenía un lugar fijo</li></ul></div>
+          <div class="after"><h4>Ahora</h4><ul><li>El buscador lleva directo al documento</li><li>Todas las áreas con la misma marca</li><li>Cultura visible para todos</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Pendiente:</b> cambios para agilizar todavía más el acceso a la información.</p>
+    <p class="doclink"><a href="https://github.com/E1000iano/proyectos/blob/main/docs/03-intranet.md">Documentación completa del proceso →</a></p>
+  </section>
+
+  <!-- Stock -->
+  <section class="project" id="stock">
+    <div class="phead"><h2>Taller · Stock de repuestos</h2><span class="pill prog">En construcción</span></div>
+    <p class="lede">El inventario de repuestos del taller de Olivos, dentro de la app. Todavía no está en uso. Lo va a gestionar Taller y Administración lo va a consultar. El stock inicial se cargó desde la planilla de relevamiento 2026.</p>
+    <div class="grid2">
+      <div class="block">
+        <h3>Cómo funciona</h3>
+        <ul class="feats">
+          <li><b>Indicadores y tabla por ítem</b><span>El estado del stock de un vistazo, con los repuestos agrupados y un buscador.</span></li>
+          <li><b>Semáforo</b><span>Verde: OK. Amarillo: bajo el mínimo. Rojo: sin stock.</span></li>
+          <li><b>Tres acciones</b><span>Ingreso de unidades, ajuste por conteo físico y definición del stock mínimo. Cada movimiento queda en el historial.</span></li>
+          <li><b>Kit de service por modelo</b><span>Qué repuestos consume cada service según el modelo del auto.</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Por qué es mejor</h3>
+        <div class="cmp">
+          <div class="before"><h4>Planilla</h4><ul><li>No queda registro de quién movió qué ni cuándo</li><li>Uno se entera de que falta un repuesto cuando ya falta</li><li>Cada service se arma de memoria</li><li>Cada área trabaja con su propia copia</li></ul></div>
+          <div class="after"><h4>Módulo de stock</h4><ul><li>Cada movimiento queda en el historial</li><li>El semáforo avisa antes de quedarse sin stock</li><li>El kit por modelo dice qué lleva cada service</li><li>Taller y Administración ven el mismo dato</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Pendiente, en curso:</b> todo lo que se use en una franquicia, una reparación o un service se va a descontar automáticamente del stock, y también la facturación. Así el stock se mantiene al día sin cargar cada salida a mano.</p>
+    <p class="doclink"><a href="https://github.com/E1000iano/proyectos/blob/main/docs/04-taller-stock.md">Documentación completa del proceso →</a></p>
+  </section>
+
+  <!-- Gastos -->
+  <section class="project" id="gastos">
+    <div class="phead"><h2>Taller · Gastos Sucursales</h2><span class="pill prog">Propuesta de mejora</span></div>
+    <p class="lede">Los movimientos contables de Tango asignados a cada sucursal o patente, en <code>/taller/flota</code>. La vista funciona, pero cuesta usarla. Proponemos simplificarla con el mismo formato que Stock.</p>
+    <div class="grid2">
+      <div class="block">
+        <h3>Dónde se traba hoy</h3>
+        <div class="stats">
+          <div class="stat"><b>6</b><span>filtros a la vista</span></div>
+          <div class="stat"><b>11</b><span>columnas en la tabla</span></div>
+          <div class="stat"><b>3</b><span>vistas del mismo dato</span></div>
+        </div>
+        <ul class="feats">
+          <li><b>Idioma contable</b><span>Debe, haber, asiento, auxiliar: pensada para un contador, no para quien gestiona la sucursal.</span></li>
+          <li><b>Demasiado a la vista</b><span>Filtros, tabla, cuadro cruzado y gráfico de torta compiten por la atención.</span></li>
+          <li><b>Totales que no coinciden</b><span>Los filtros por columna sólo filtran la página cargada, así que el total al pie puede no cerrar con los indicadores de arriba.</span></li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>La propuesta</h3>
+        <div class="mock" aria-label="Boceto de la vista propuesta">
+          <div class="mk-kpis">
+            <div><small>Gasto del período</small><b>$ ···</b></div>
+            <div><small>Sucursal con más gasto</small><b>···</b></div>
+            <div><small>Movimientos</small><b>···</b></div>
+          </div>
+          <div class="mk-search"><span>Buscar sucursal o patente</span><em>Avanzado ▸</em></div>
+          <div class="mk-body">
+            <div class="mk-rows">
+              <div class="mk-row"><span>Sucursal A</span><i style="width:92%"></i></div>
+              <div class="mk-row sel"><span>Sucursal B</span><i style="width:70%"></i></div>
+              <div class="mk-row"><span>Sucursal C</span><i style="width:52%"></i></div>
+              <div class="mk-row"><span>Sucursal D</span><i style="width:34%"></i></div>
+            </div>
+            <div class="mk-panel"><b>Sucursal B</b><i></i><i></i><i></i></div>
+          </div>
+        </div>
+        <p class="caption">Boceto: 3 indicadores en pesos, una lista por sucursal con buscador, un panel al costado con los movimientos y el desglose del asiento, y lo contable plegado en «Avanzado».</p>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="block">
+        <h3>Por qué es mejor</h3>
+        <div class="cmp">
+          <div class="before"><h4>Hoy</h4><ul><li>Hay que saber contabilidad para leerla</li><li>Seis filtros y tres vistas antes de llegar al dato</li><li>El total del pie puede no coincidir con los indicadores</li></ul></div>
+          <div class="after"><h4>Propuesta</h4><ul><li>Se lee en pesos y por sucursal</li><li>Buscar la sucursal y tocarla: dos pasos hasta el detalle</li><li>Un único total, siempre consistente, y la misma lógica que Stock</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <p class="doclink"><a href="https://github.com/E1000iano/proyectos/blob/main/docs/05-taller-gastos-sucursales.md">Documentación completa del proceso →</a></p>
+  </section>
+
+  <!-- Cámaras -->
+  <section class="project" id="camaras">
+    <div class="phead"><h2>Servidor de cámaras</h2><span class="pill prog">En armado</span></div>
+    <p class="lede">Poder ver las cámaras desde un link, en lugar del acceso muy limitado que hay hoy.</p>
+    <div class="grid2">
+      <div class="block">
+        <h3>De un acceso limitado a un link</h3>
+        <div class="cmp">
+          <div class="before"><h4>Hoy</h4><ul><li>Las cámaras se pueden ver, pero el acceso es muy limitado</li><li>Dar acceso a alguien nuevo no es simple</li><li>Mirar una cámara depende de dónde estás</li></ul></div>
+          <div class="after"><h4>Objetivo</h4><ul><li>Se ven las cámaras desde un link</li><li>Se decide quién accede y a qué</li><li>Se consultan desde donde haga falta</li></ul></div>
+        </div>
+      </div>
+      <div class="block">
+        <h3>Por qué es mejor</h3>
+        <ul class="feats">
+          <li><b>Acceso simple</b><span>Un link en lugar de una configuración por persona.</span></li>
+          <li><b>Control de acceso</b><span>Cada persona ve sólo lo que le corresponde.</span></li>
+          <li><b>Más visibilidad</b><span>Supervisar las sucursales sin estar ahí.</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="doclink"><a href="https://github.com/E1000iano/proyectos/blob/main/docs/06-servidor-camaras.md">Documentación completa del proceso →</a></p>
+  </section>
+
+  <!-- RustDesk -->
+  <section class="project" id="rustdesk">
+    <div class="phead"><h2>Servidor propio de RustDesk</h2><span class="pill prog">En instalación</span></div>
+    <p class="lede">Reemplaza a AnyDesk con un servidor de acceso remoto que gestionamos nosotros.</p>
+    <div class="grid2">
+      <div class="block">
+        <h3>AnyDesk frente a RustDesk propio</h3>
+        <div class="tbl">
+          <table>
+            <thead><tr><th></th><th>AnyDesk</th><th>RustDesk propio</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Licencias</th><td>Pago por licencia</td><td class="win">Sin licenciamiento</td></tr>
+              <tr><th scope="row">Servidor</th><td>De un tercero</td><td class="win">Propio, lo gestionamos nosotros</td></tr>
+              <tr><th scope="row">Control de los equipos</th><td>Limitado a lo que ofrece el proveedor</td><td class="win">Vemos y administramos todos los equipos</td></tr>
+              <tr><th scope="row">Seguridad</th><td>Las conexiones pasan por un servicio externo</td><td class="win">Las conexiones pasan por nuestro servidor</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="block">
+        <h3>Por qué es mejor</h3>
+        <ul class="feats">
+          <li><b>Ahorro</b><span>Dejamos de pagar licencias de acceso remoto.</span></li>
+          <li><b>Control</b><span>Administramos los equipos desde nuestro propio servidor.</span></li>
+          <li><b>Seguridad</b><span>Las conexiones de soporte remoto no pasan por un servicio de terceros.</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="doclink"><a href="https://github.com/E1000iano/proyectos/blob/main/docs/07-rustdesk.md">Documentación completa del proceso →</a></p>
+  </section>
+
+  <!-- Postulaciones -->
+  <section class="project" id="postulaciones">
+    <div class="phead"><h2>Portal de postulaciones</h2><span class="pill prog">Hecho, sin publicar</span></div>
+    <p class="lede">Una página pública de empleos: cualquiera ve las búsquedas abiertas y deja su CV. Cada postulación pasa por un filtro de requisitos y llega por mail a Personas &amp; Cultura, con el CV adjunto y el resultado del filtro explicado. El desarrollo está hecho y probado.</p>
+    <div class="grid2">
+      <div class="block">
+        <h3>El recorrido de una postulación</h3>
+        <ol class="steps">
+          <li><div><b>Entra por el portal</b><span>Elige una búsqueda abierta o deja su CV de forma espontánea. Sin usuario ni contraseña; el link se comparte en redes, firmas de mail o un QR en sucursales.</span></div></li>
+          <li><div><b>Se revisa el archivo</b><span>Sólo PDF, DOC o DOCX, hasta 5 MB. Se frenan los archivos que no son CV y los envíos de robots.</span></div></li>
+          <li><div><b>Pasa por el filtro</b><span>El sistema lee el CV y lo compara con los requisitos de esa búsqueda.</span></div></li>
+          <li><div><b>Llega el mail a Personas &amp; Cultura</b><span>Con el CV adjunto, los datos del formulario y el detalle del filtro. Al responder, la respuesta le llega directo al candidato.</span></div></li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>Cómo decide el filtro</h3>
+        <ul class="feats">
+          <li><b>Excluyentes y deseables</b><span>Si falta un excluyente, la postulación queda marcada como «no pasa». Los deseables sólo suman puntaje (de 0 a 100).</span></li>
+          <li><b>Ordena, no descarta</b><span>Todas las postulaciones llegan. El asunto del mail adelanta el veredicto: <em>Aprobado (85/100)</em>, <em>No pasa, falta: registro de conducir</em>, <em>CV no legible, revisar a mano</em> o <em>Sin filtro</em> si es espontánea.</span></li>
+          <li><b>Requisitos ocultos</b><span>No se publican en la web, para que los candidatos no los copien en el CV.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="block">
+        <h3>Por qué es mejor</h3>
+        <div class="cmp">
+          <div class="before"><h4>Hoy</h4><ul><li>Los CV llegan por WhatsApp de un encargado, en papel en el mostrador o a una casilla personal</li><li>Hay ida y vuelta para pedir teléfono o saber para qué puesto era</li><li>Localiza Argentina no tiene una página propia de empleos</li></ul></div>
+          <div class="after"><h4>Con el portal</h4><ul><li>Todas las postulaciones entran por el mismo lugar y con los mismos datos</li><li>La bandeja se ordena sola: el asunto dice el veredicto y la búsqueda</li><li>Una página con la marca, los beneficios y el proceso explicado, con los datos tratados según la Ley 25.326</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Falta para ponerlo en marcha:</b> la casilla que recibe los CV, dar de alta el dominio propio y que Personas &amp; Cultura revise los requisitos reales de cada búsqueda (hoy hay tres de ejemplo). Más adelante: un panel para que Personas &amp; Cultura publique búsquedas sin pasar por Sistemas.</p>
+    <p class="doclink"><a href="https://github.com/E1000iano/proyectos/blob/main/docs/08-portal-postulaciones.md">Documentación completa del proceso →</a></p>
+  </section>
+
+  <footer>Tecnología · Localiza Argentina — estado a octubre de 2026. Documentación en <a href="https://github.com/E1000iano/proyectos">github.com/E1000iano/proyectos</a>.</footer>
+</div>
+</main>
+</body>
+</html>
