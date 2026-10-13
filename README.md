@@ -17,7 +17,7 @@ Este repo tiene sólo documentación, sin código.
 | Taller · Gastos Sucursales | 🛠️ Propuesta de mejora | Elegir el diseño simplificado | [05-taller-gastos-sucursales](docs/05-taller-gastos-sucursales.md) |
 | Servidor de cámaras | 🛠️ En armado | Terminar el acceso por link | [06-servidor-camaras](docs/06-servidor-camaras.md) |
 | Servidor propio de RustDesk | 🛠️ En instalación | Terminar la instalación y migrar equipos | [07-rustdesk](docs/07-rustdesk.md) |
-| Portal de postulaciones | 🛠️ Hecho, sin publicar | Casilla de correo, dominio y requisitos reales | [08-portal-postulaciones](docs/08-portal-postulaciones.md) |
+| Portal de Empleos | ✅ En producción | Permisos para P&C y búsquedas reales | [08-portal-postulaciones](docs/08-portal-postulaciones.md) |
 
 ## Qué tienen en común
 
@@ -34,7 +34,7 @@ La mayoría de los proyectos viven dentro de la app interna de Localiza:
 - Frontend en Next.js (React).
 - Integraciones con el ERP Tango, las APIs de contratos y de flota de Localiza, Google Workspace y Multabot.
 
-El Portal de postulaciones es una web aparte. Cámaras y RustDesk son servidores propios.
+El Portal de Empleos es parte de la app, con dirección propia (empleos.ldmtapp.com). Cámaras y RustDesk son servidores propios.
 
 ## Estructura
 

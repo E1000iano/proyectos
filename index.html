@@ -105,6 +105,16 @@ main{padding-inline:16px;padding-block:40px 64px}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stat b{color:var(--lime)}}
 .stat span{font-size:13px;color:var(--muted)}
 
+/* capturas */
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;margin-top:24px}
+.shots-hero{grid-template-columns:minmax(0,3fr) minmax(0,1fr);align-items:start}
+@media (max-width:640px){.shots-hero{grid-template-columns:1fr}}
+.shot{margin:0;min-width:0}
+.shot img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.shot.phone img{max-width:260px;margin-inline:auto;border-radius:22px}
+.shot figcaption{margin-top:8px;font-size:14px;color:var(--muted)}
+.shot figcaption b{color:var(--ink)}
+
 /* mockup of the proposed Gastos Sucursales view */
 .mock{border:1px solid var(--line);border-radius:12px;background:var(--muted-bg);padding:14px;display:grid;gap:10px;font-size:13px}
 .mk-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -147,8 +157,8 @@ footer{margin-top:48px;font-size:13px;color:var(--muted)}
     <p>Qué armamos, en qué estado está cada proyecto y por qué es mejor que lo que teníamos. Casi todos apuntan a lo mismo: menos trabajo manual y datos en un solo lugar.</p>
     <div class="tally">
       <div><b>8</b>proyectos</div>
-      <div><b>3</b>en uso</div>
-      <div><b>5</b>en construcción o propuesta</div>
+      <div><b>4</b>en uso</div>
+      <div><b>4</b>en construcción o propuesta</div>
     </div>
   </div>
 </header>
@@ -165,7 +175,7 @@ footer{margin-top:48px;font-size:13px;color:var(--muted)}
     <a class="ov" href="#gastos"><h3>Taller · Gastos Sucursales</h3><span class="pill prog">Propuesta de mejora</span><span class="next">Elegir el diseño simplificado</span></a>
     <a class="ov" href="#camaras"><h3>Servidor de cámaras</h3><span class="pill prog">En armado</span><span class="next">Terminar el acceso por link</span></a>
     <a class="ov" href="#rustdesk"><h3>Servidor propio de RustDesk</h3><span class="pill prog">En instalación</span><span class="next">Terminar la instalación y migrar equipos</span></a>
-    <a class="ov" href="#postulaciones"><h3>Portal de postulaciones</h3><span class="pill prog">Hecho, sin publicar</span><span class="next">Casilla de correo, dominio y requisitos reales</span></a>
+    <a class="ov" href="#postulaciones"><h3>Portal de Empleos</h3><span class="pill ok">En producción</span><span class="next">Permisos para P&amp;C y búsquedas reales</span></a>
   </nav>
 
   <!-- Portal de Clientes -->
@@ -379,37 +389,48 @@ footer{margin-top:48px;font-size:13px;color:var(--muted)}
 
   <!-- Postulaciones -->
   <section class="project" id="postulaciones">
-    <div class="phead"><h2>Portal de postulaciones</h2><span class="pill prog">Hecho, sin publicar</span></div>
-    <p class="lede">Una página pública de empleos: cualquiera ve las búsquedas abiertas y deja su CV. Cada postulación pasa por un filtro de requisitos y llega por mail a Personas &amp; Cultura, con el CV adjunto y el resultado del filtro explicado. El desarrollo está hecho y probado.</p>
+    <div class="phead"><h2>Portal de Empleos</h2><span class="pill ok">En producción</span></div>
+    <p class="lede">Una web pública de empleos, <a href="https://empleos.ldmtapp.com">empleos.ldmtapp.com</a>: cualquiera ve las búsquedas abiertas y deja su CV. Cada CV pasa por un filtro de requisitos y queda en una bandeja interna donde Personas &amp; Cultura lo revisa por zona y provincia. Desde el mismo panel, P&amp;C publica búsquedas y cambia los textos y las fotos de la web sin pasar por Sistemas.</p>
+    <div class="shots shots-hero">
+      <figure class="shot"><img src="img/postulaciones/desk-hero.jpg" alt="Portada del Portal de Empleos en escritorio" loading="lazy"><figcaption>La web pública, con la marca y la tipografía de Localiza.</figcaption></figure>
+      <figure class="shot phone"><img src="img/postulaciones/mob-hero.jpg" alt="Portada del Portal de Empleos en el celular" loading="lazy"><figcaption>En el celular.</figcaption></figure>
+    </div>
     <div class="grid2">
       <div class="block">
-        <h3>El recorrido de una postulación</h3>
+        <h3>El recorrido de un CV</h3>
         <ol class="steps">
-          <li><div><b>Entra por el portal</b><span>Elige una búsqueda abierta o deja su CV de forma espontánea. Sin usuario ni contraseña; el link se comparte en redes, firmas de mail o un QR en sucursales.</span></div></li>
-          <li><div><b>Se revisa el archivo</b><span>Sólo PDF, DOC o DOCX, hasta 5 MB. Se frenan los archivos que no son CV y los envíos de robots.</span></div></li>
+          <li><div><b>Entra por el portal</b><span>Elige una búsqueda abierta o deja su CV de forma espontánea. Carga sus datos y su provincia. Sin usuario ni contraseña.</span></div></li>
+          <li><div><b>Se revisa el archivo</b><span>Sólo PDF o Word, hasta 5 MB. Se frenan los archivos que no son CV y los envíos de robots.</span></div></li>
           <li><div><b>Pasa por el filtro</b><span>El sistema lee el CV y lo compara con los requisitos de esa búsqueda.</span></div></li>
-          <li><div><b>Llega el mail a Personas &amp; Cultura</b><span>Con el CV adjunto, los datos del formulario y el detalle del filtro. Al responder, la respuesta le llega directo al candidato.</span></div></li>
+          <li><div><b>Queda en la bandeja de P&amp;C</b><span>Con el resultado del filtro, la provincia y la zona. No viaja por mail: sólo lo ve quien tiene el permiso del panel.</span></div></li>
         </ol>
       </div>
       <div class="block">
         <h3>Cómo decide el filtro</h3>
         <ul class="feats">
           <li><b>Excluyentes y deseables</b><span>Si falta un excluyente, la postulación queda marcada como «no pasa». Los deseables sólo suman puntaje (de 0 a 100).</span></li>
-          <li><b>Ordena, no descarta</b><span>Todas las postulaciones llegan. El asunto del mail adelanta el veredicto: <em>Aprobado (85/100)</em>, <em>No pasa, falta: registro de conducir</em>, <em>CV no legible, revisar a mano</em> o <em>Sin filtro</em> si es espontánea.</span></li>
+          <li><b>Ordena, no descarta</b><span>Todas las postulaciones llegan. La bandeja muestra el veredicto: <em>Aprobado</em> con su puntaje, <em>No pasa</em>, <em>No legible</em> (revisar a mano) o <em>Sin filtro</em> si es espontánea.</span></li>
           <li><b>Requisitos ocultos</b><span>No se publican en la web, para que los candidatos no los copien en el CV.</span></li>
         </ul>
       </div>
+    </div>
+    <div class="shots">
+      <figure class="shot"><img src="img/postulaciones/panel-lista.jpg" alt="Bandeja de postulaciones con filtros por zona y provincia" loading="lazy"><figcaption><b>Bandeja.</b> Filtros por zona, provincia, búsqueda, resultado del filtro y estado. Se exporta a Excel.</figcaption></figure>
+      <figure class="shot"><img src="img/postulaciones/panel-detalle.jpg" alt="Detalle de una postulación con el resultado del filtro" loading="lazy"><figcaption><b>Detalle.</b> El filtro requisito por requisito, los datos del candidato y el CV a un clic.</figcaption></figure>
+      <figure class="shot"><img src="img/postulaciones/panel-editor-busqueda.jpg" alt="Editor de una búsqueda con sus requisitos" loading="lazy"><figcaption><b>Búsquedas.</b> P&amp;C las publica, pausa y edita, con sus requisitos.</figcaption></figure>
+      <figure class="shot"><img src="img/postulaciones/panel-contenido.jpg" alt="Editor del contenido de la portada" loading="lazy"><figcaption><b>Contenido web.</b> Portada, foto, cifras, beneficios, pasos, preguntas y áreas. Se guarda y se ve en la web al instante.</figcaption></figure>
     </div>
     <div class="grid2">
       <div class="block">
         <h3>Por qué es mejor</h3>
         <div class="cmp">
-          <div class="before"><h4>Hoy</h4><ul><li>Los CV llegan por WhatsApp de un encargado, en papel en el mostrador o a una casilla personal</li><li>Hay ida y vuelta para pedir teléfono o saber para qué puesto era</li><li>Localiza Argentina no tiene una página propia de empleos</li></ul></div>
-          <div class="after"><h4>Con el portal</h4><ul><li>Todas las postulaciones entran por el mismo lugar y con los mismos datos</li><li>La bandeja se ordena sola: el asunto dice el veredicto y la búsqueda</li><li>Una página con la marca, los beneficios y el proceso explicado, con los datos tratados según la Ley 25.326</li></ul></div>
+          <div class="before"><h4>Antes</h4><ul><li>Los CV llegaban por WhatsApp de un encargado, en papel en el mostrador o a una casilla personal</li><li>Había ida y vuelta para pedir teléfono o saber para qué puesto era</li><li>Localiza Argentina no tenía una página propia de empleos</li></ul></div>
+          <div class="after"><h4>Con el portal</h4><ul><li>Todas las postulaciones entran por el mismo lugar y con los mismos datos</li><li>La bandeja se ordena sola y se filtra por zona del país</li><li>P&amp;C cambia textos, fotos y búsquedas sin pedirle nada a Sistemas</li></ul></div>
         </div>
       </div>
     </div>
-    <p class="note"><b>Falta para ponerlo en marcha:</b> la casilla que recibe los CV, dar de alta el dominio propio y que Personas &amp; Cultura revise los requisitos reales de cada búsqueda (hoy hay tres de ejemplo). Más adelante: un panel para que Personas &amp; Cultura publique búsquedas sin pasar por Sistemas.</p>
+    <p class="note"><b>Próximo paso:</b> dar el permiso del panel al equipo de Personas &amp; Cultura y cargar las búsquedas reales. Más adelante: definir cuánto tiempo se guardan los CV (Ley 25.326).</p>
+    <p class="note good"><b>Las capturas del panel</b> usan postulaciones de ejemplo: los nombres y mails son ficticios.</p>
     <p class="doclink"><a href="https://github.com/E1000iano/proyectos/blob/main/docs/08-portal-postulaciones.md">Documentación completa del proceso →</a></p>
   </section>
 

@@ -1,24 +1,32 @@
-# Portal de postulaciones
+# Portal de Empleos
 
-**Estado:** Hecho, sin publicar
+**Estado:** En producción · [empleos.ldmtapp.com](https://empleos.ldmtapp.com)
 
 ## Resumen
 
-Una página pública de empleos donde cualquiera ve las búsquedas abiertas y deja su CV. Cada postulación pasa por un filtro de requisitos y le llega por mail a Personas & Cultura, con el CV adjunto y el resultado del filtro explicado. El desarrollo está hecho y probado. Para publicarlo falta configurar algunas cosas.
+Una web pública de empleos donde cualquiera ve las búsquedas abiertas y deja su CV. Cada CV pasa por un filtro de requisitos y queda en una bandeja interna, donde Personas & Cultura lo revisa por zona y provincia. Desde el mismo panel, P&C publica las búsquedas y cambia los textos y las fotos de la web sin pasar por Sistemas.
+
+<p align="center">
+  <img src="../img/postulaciones/desk-hero.jpg" width="70%" alt="Portada del Portal de Empleos en escritorio">
+  &nbsp;
+  <img src="../img/postulaciones/mob-hero.jpg" width="22%" alt="Portada en el celular">
+</p>
 
 ## Problema que resuelve
 
-- Hoy los CV llegan por donde caiga: el WhatsApp de un encargado, en papel en el mostrador, una casilla personal. En el camino se pierden candidatos.
-- Hay idas y vueltas para pedir el teléfono o saber para qué puesto era la postulación.
-- Localiza Argentina no tiene una página propia de empleos.
+- Los CV llegaban por donde cayera: el WhatsApp de un encargado, en papel en el mostrador, una casilla personal. En el camino se perdían candidatos.
+- Había idas y vueltas para pedir el teléfono o saber para qué puesto era la postulación.
+- Localiza Argentina no tenía una página propia de empleos.
 
 ## Qué es
 
 - **Una web abierta.** Sin usuario ni contraseña, con dirección propia. El link se comparte en redes, en la firma del mail o en un QR en las sucursales.
-- **Postulación en un paso.** El candidato adjunta el CV y completa nombre, mail, teléfono, localidad, área, LinkedIn y un mensaje. Puede elegir una búsqueda o dejar el CV para el futuro.
-- **Llega a la casilla de siempre.** No hay sistemas nuevos ni otro tablero que revisar: cada postulación entra como un mail a la casilla que defina Personas & Cultura.
+- **Postulación en un paso.** El candidato adjunta el CV y completa nombre, mail, teléfono, localidad, provincia, área, LinkedIn y un mensaje. Puede elegir una búsqueda o dejar el CV para el futuro.
+- **Un panel para Personas & Cultura.** Dentro de la app interna, con tres pestañas: postulaciones, búsquedas y contenido de la web.
 
-## El recorrido de una postulación
+![Página completa](../img/postulaciones/desk-full.jpg)
+
+## El recorrido de un CV
 
 ```mermaid
 flowchart TD
@@ -29,15 +37,45 @@ flowchart TD
   D --> E
   E --> F[Se lee el texto del CV]
   F --> G[Filtro de requisitos]
-  G --> H[Mail a Personas & Cultura con CV y veredicto]
-  H --> I[P&C responde y la respuesta le llega al candidato]
+  G --> H[Queda en la bandeja de P&C con el veredicto]
+  H --> I[P&C lo revisa, lo contacta o lo descarta]
 ```
 
 1. **Entra por el portal.** Elige una búsqueda abierta o se postula de forma espontánea.
-2. **Se revisa el archivo.** Sólo PDF, DOC o DOCX, hasta 5 MB. Se verifica que el archivo sea lo que dice ser y se frenan los envíos automáticos de robots.
+2. **Se revisa el archivo.** Sólo PDF o Word, hasta 5 MB. Se verifica que el archivo sea lo que dice ser y se frenan los envíos automáticos de robots.
 3. **Se lee el texto del CV.** El sistema abre el documento y extrae su contenido para compararlo.
 4. **Pasa por el filtro.** Se compara con los requisitos cargados para esa búsqueda, excluyentes y deseables.
-5. **Llega el mail a Personas & Cultura.** Con el CV adjunto, los datos del formulario y el detalle del filtro. Si P&C responde ese mail, la respuesta le llega directo al candidato.
+5. **Queda en la bandeja.** Con el resultado del filtro, los datos del formulario, la provincia y la zona del país. El CV no viaja por mail: sólo lo ve quien tiene el permiso del panel.
+
+## El panel de Personas & Cultura
+
+### Postulaciones
+
+![Bandeja de postulaciones](../img/postulaciones/panel-lista.jpg)
+
+Desplegables para filtrar por **zona** (AMBA, Centro, Cuyo, NOA, NEA, Patagonia), **provincia**, **búsqueda**, **resultado del filtro** y **estado**. Lo que se ve se exporta a Excel.
+
+![Detalle de una postulación](../img/postulaciones/panel-detalle.jpg)
+
+Al abrir una postulación se ve el filtro requisito por requisito (con la palabra que encontró en el CV), los datos del candidato, su mensaje y los botones para ver el CV y responderle. El estado pasa de *Nueva* a *Vista*, y después a *Contactado* o *Descartado*.
+
+### Búsquedas
+
+| Lista | Editor |
+|---|---|
+| ![Búsquedas](../img/postulaciones/panel-busquedas.jpg) | ![Editor de búsqueda](../img/postulaciones/panel-editor-busqueda.jpg) |
+
+P&C da de alta, edita, pausa o borra búsquedas. Cada una tiene su interruptor **Publicada** y su propio filtro de requisitos.
+
+### Contenido web
+
+Toda la web se edita desde el panel: portada (con su foto de fondo), cifras, beneficios, pasos del proceso, preguntas frecuentes y áreas. Cada sección tiene su botón **Guardar** y el cambio se ve en la web al instante, sin pedirle nada a Sistemas.
+
+| Lo que edita P&C | Lo que ve el candidato |
+|---|---|
+| ![Editor de beneficios](../img/postulaciones/panel-beneficios.jpg) | ![Beneficios en la web](../img/postulaciones/portal-beneficios.jpg) |
+
+![Editor de la portada](../img/postulaciones/panel-contenido.jpg)
 
 ## Cómo decide el filtro
 
@@ -50,32 +88,29 @@ Cada requisito se carga con sus variantes ("registro de conducir", "licencia de 
 
 El puntaje va de 0 a 100: los excluyentes pesan 70 y los deseables, 30.
 
-| Veredicto | Cuándo | Ejemplo de asunto del mail |
-|---|---|---|
-| Aprobado | Están todos los excluyentes. El puntaje ordena la lista | `[APROBADO (85/100)] Operador/a de Flota — Nombre Apellido` |
-| No pasa | Falta algún excluyente, y el asunto dice cuál. **Llega igual:** el filtro ordena, no descarta | `[NO PASA — falta: registro de conducir] Operador/a de Flota — Nombre Apellido` |
-| No legible | No se pudo leer el CV (un PDF escaneado, un .doc viejo o un archivo dañado). Va a revisión manual | `[CV NO LEGIBLE — revisar a mano] Ejecutivo/a Comercial — Nombre Apellido` |
-| Sin filtro | Postulación espontánea: no hay contra qué comparar | `[Sin filtro (postulación espontánea)] — Nombre Apellido` |
+| Veredicto | Cuándo |
+|---|---|
+| Aprobado | Están todos los excluyentes. El puntaje ordena la lista |
+| No pasa | Falta algún excluyente, y el detalle dice cuál. **Llega igual:** el filtro ordena, no descarta |
+| No legible | No se pudo leer el CV (una foto, un PDF escaneado o un Word viejo). Va a revisión manual |
+| Sin filtro | Postulación espontánea o búsqueda sin requisitos |
 
 Los requisitos no se publican en la web. Si el candidato los viera, los copiaría en el CV y el filtro dejaría de servir.
 
 ## Qué mejora para Personas & Cultura
 
 - **No se pierden candidatos en el camino.** Todos los CV entran por el mismo lugar y con los mismos datos.
-- **Menos idas y vueltas.** El CV llega con mail, teléfono, localidad y área ya cargados.
-- **La bandeja se ordena sola.** El asunto adelanta el veredicto y la búsqueda, así que se puede priorizar sin abrir un archivo.
+- **Menos idas y vueltas.** El CV llega con mail, teléfono, localidad, provincia y área ya cargados.
+- **La bandeja se ordena sola.** Por veredicto, puntaje y zona del país.
+- **Autonomía.** Textos, fotos y búsquedas se cambian desde el panel, sin depender de Sistemas.
 - **Llega filtrado.** Se rechazan los archivos que no son CV y los envíos automáticos.
-- **Imagen de empleador.** Una página presentable, con la marca, los beneficios y el proceso explicado.
-- **Menos consultas repetidas.** Las preguntas frecuentes están respondidas en la página.
-- **Datos personales en regla.** El formulario aclara que la información se usa sólo para selección, según la Ley 25.326 de Protección de Datos Personales.
+- **Imagen de empleador.** Una página con la marca, los beneficios y el proceso explicado.
+- **Datos personales en regla.** Los CV no circulan por mail y sólo los ve quien tiene el permiso. El formulario aclara que la información se usa sólo para selección, según la Ley 25.326 de Protección de Datos Personales.
 
-## Dos cosas que conviene saber
+## Qué sigue
 
-- **El mail es el registro.** Ningún CV se guarda en un sistema aparte: el mail con su adjunto es el único registro. Si más adelante hace falta un historial buscable, es un desarrollo nuevo.
-- **Publicar una búsqueda todavía pasa por Sistemas.** Hoy las búsquedas se cargan en el código. El paso siguiente es un panel para que Personas & Cultura las dé de alta y de baja por su cuenta.
+- Dar el permiso del panel al equipo de Personas & Cultura.
+- Cargar las búsquedas reales con sus requisitos.
+- Definir cuánto tiempo se guardan los CV.
 
-## Qué falta para ponerlo en marcha
-
-- La casilla de correo que recibe los CV. Mientras no esté, el formulario avisa en pantalla que las postulaciones no están habilitadas, así que ninguna se pierde sin aviso.
-- Dar de alta la dirección web propia, separada de la de la app interna.
-- Que Personas & Cultura revise los requisitos reales de cada búsqueda. Hoy hay tres búsquedas de ejemplo.
+> Las capturas de la web son de producción. Las del panel usan postulaciones de ejemplo: los nombres y mails son ficticios.
